@@ -1,0 +1,11 @@
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\bin\Debug\net9.0\DigitRecognitionNN.deps.json
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\bin\Debug\net9.0\DigitRecognitionNN.dll
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\bin\Debug\net9.0\DigitRecognitionNN.pdb
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\DigitRecognitionNN.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\DigitRecognitionNN.AssemblyInfoInputs.cache
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\DigitRecognitionNN.AssemblyInfo.cs
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\DigitRecognitionNN.csproj.CoreCompileInputs.cache
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\DigitRecognitionNN.dll
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\refint\DigitRecognitionNN.dll
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\DigitRecognitionNN.pdb
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\ref\DigitRecognitionNN.dll
