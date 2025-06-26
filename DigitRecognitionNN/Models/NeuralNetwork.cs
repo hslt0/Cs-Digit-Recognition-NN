@@ -166,13 +166,13 @@ public class NeuralNetwork
         if (model == null)
             throw new Exception("Deserialize error");
 
-        weightsInputHidden = Matrix.FromJaggedArray(model.WeightsInputHidden);
-        weightsHiddenHidden = Matrix.FromJaggedArray(model.WeightsHiddenHidden);
-        weightsHiddenOutput = Matrix.FromJaggedArray(model.WeightsHiddenOutput);
+        if (model.WeightsInputHidden != null) weightsInputHidden = Matrix.FromJaggedArray(model.WeightsInputHidden);
+        if (model.WeightsHiddenHidden != null) weightsHiddenHidden = Matrix.FromJaggedArray(model.WeightsHiddenHidden);
+        if (model.WeightsHiddenOutput != null) weightsHiddenOutput = Matrix.FromJaggedArray(model.WeightsHiddenOutput);
 
-        biasHidden = Matrix.FromJaggedArray(model.BiasHidden);
-        biasHidden2 = Matrix.FromJaggedArray(model.BiasHidden2);
-        biasOutput = Matrix.FromJaggedArray(model.BiasOutput);
+        if (model.BiasHidden != null) biasHidden = Matrix.FromJaggedArray(model.BiasHidden);
+        if (model.BiasHidden2 != null) biasHidden2 = Matrix.FromJaggedArray(model.BiasHidden2);
+        if (model.BiasOutput != null) biasOutput = Matrix.FromJaggedArray(model.BiasOutput);
     }
 
 }

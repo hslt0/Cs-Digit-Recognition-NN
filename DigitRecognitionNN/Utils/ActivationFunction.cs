@@ -35,16 +35,20 @@ public static class ActivationFunctions
 
     public static void ApplyReLu(Matrix m)
     {
-        for (int i = 0; i < m.Rows; i++)
-        for (int j = 0; j < m.Cols; j++)
-            m[i, j] = ReLu(m[i, j]);
+        int rows = m.Rows;
+        int cols = m.Cols;
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                m[i, j] = ReLu(m[i, j]);
     }
 
     public static void ApplyReLuDerivative(Matrix z, Matrix delta)
     {
-        for (int i = 0; i < z.Rows; i++)
-        for (int j = 0; j < z.Cols; j++)
-            delta[i, j] *= ReLuDerivative(z[i, j]);
+        int rows = z.Rows;
+        int cols = z.Cols;
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                delta[i, j] *= ReLuDerivative(z[i, j]);
     }
 
 }
