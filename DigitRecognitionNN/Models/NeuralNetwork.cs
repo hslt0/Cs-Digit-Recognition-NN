@@ -13,10 +13,10 @@ public class NeuralNetwork
     private Matrix biasHidden2;
     private Matrix biasOutput;
     
-    private readonly double learningRate;
+    private readonly float learningRate;
     private readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = false };
 
-    public NeuralNetwork(int inputSize, int hiddenSize, int outputSize, double learningRate)
+    public NeuralNetwork(int inputSize, int hiddenSize, int outputSize, float learningRate)
     {
         this.learningRate = learningRate;
         weightsInputHidden = new Matrix(hiddenSize, inputSize);         // 16 x 784
@@ -38,7 +38,7 @@ public class NeuralNetwork
 
     }
 
-    public double[] Predict(double[] input)
+    public float[] Predict(float[] input)
     {
         var inputMatrix = Matrix.FromArray(input); // 784 x 1
 
@@ -57,7 +57,7 @@ public class NeuralNetwork
         return ActivationFunctions.Softmax(output.ToArray());
     }
     
-    private void Train(double[] input, double[] target)
+    private void Train(float[] input, float[] target)
     {
         // ==== 1. FORWARD ====
         var inputMatrix = Matrix.FromArray(input);
@@ -111,34 +111,34 @@ public class NeuralNetwork
         for (int epoch = 0; epoch < epochs; epoch++)
         {
             DataLoader.Shuffle(data);
-            double totalLoss = 0;
+            float totalLoss = 0;
 
             foreach (var dp in data)
             {
-                double[] prediction = Predict(dp.Input);
+                float[] prediction = Predict(dp.Input);
                 totalLoss += MathUtils.CrossEntropy(prediction, dp.Target);
                 Train(dp.Input, dp.Target);
             }
 
-            double averageLoss = totalLoss / data.Count;
+            float averageLoss = totalLoss / data.Count;
             Console.WriteLine($"Epoch {epoch + 1}/{epochs} completed. Avg Loss: {averageLoss:F4}");
         }
     }
     
-    public double TestAccuracy(List<DataPoint> testData)
+    public float TestAccuracy(List<DataPoint> testData)
     {
         int correctCount = 0;
 
         foreach (var dp in testData)
         {
-            double[] prediction = Predict(dp.Input);
+            float[] prediction = Predict(dp.Input);
             int predictedLabel = MathUtils.ArgMax(prediction);
 
             if (predictedLabel == dp.Label)
                 correctCount++;
         }
 
-        return (double)correctCount / testData.Count;
+        return (float)correctCount / testData.Count;
     }
 
     public void SaveModel(string filename)

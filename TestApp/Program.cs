@@ -23,7 +23,7 @@ internal static class Program
             inputSize: 784,   // 28x28 pixels
             hiddenSize: 16,  
             outputSize: 10,   // 10 digits (0-9)
-            learningRate: 0.01
+            learningRate: 0.01f
         );
         
         Console.WriteLine("Do you want load model from JSON? (true/false):");
@@ -42,7 +42,7 @@ internal static class Program
         }
         
         // 4. Accuracy after training
-        double accuracy = network.TestAccuracy(testData);
+        float accuracy = network.TestAccuracy(testData);
         Console.WriteLine($"Accuracy on test data: {accuracy * 100:F2}%");
     
         // 5. Saving model
@@ -55,7 +55,7 @@ internal static class Program
         for (int i = 0; i < testCount; i++)
         {
             var testPoint = testData[i];
-            double[] prediction = network.Predict(testPoint.Input);
+            float[] prediction = network.Predict(testPoint.Input);
             int predictedDigit = MathUtils.ArgMax(prediction);
         
             Console.WriteLine($"Real digit: {testPoint.Label}, " +

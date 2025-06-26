@@ -4,38 +4,38 @@ public static class MathUtils
 {
     private static readonly Random Random = new();
     
-    public static double RandomWeight() => Random.NextDouble() * 2 - 1; // [-1, 1]
+    public static float RandomWeight() => (float)Random.NextDouble() * 2 - 1; // [-1, 1]
     
     //Alternative for CrossEntropy
     
-    /*public static double MeanSquaredError(double[] predicted, double[] actual)
+    /*public static float MeanSquaredError(float[] predicted, float[] actual)
     {
         if (predicted.Length != actual.Length)
             throw new ArgumentException("Arrays must be the same length.");
 
-        double sum = predicted.Select((t, i) => t - actual[i]).Sum(diff => diff * diff);
+        float sum = predicted.Select((t, i) => t - actual[i]).Sum(diff => diff * diff);
 
         return sum / predicted.Length;
     }*/
     
-    public static double CrossEntropy(double[] predicted, double[] actual)
+    public static float CrossEntropy(float[] predicted, float[] actual)
     {
         if (predicted.Length != actual.Length)
             throw new ArgumentException("Arrays must be the same length.");
 
-        double epsilon = 1e-12; // avoiding log(0)
-        double sum = predicted.Select((t, i) => actual[i] * Math.Log(t + epsilon)).Sum();
+        float epsilon = 1e-12f; // avoiding log(0)
+        float sum = predicted.Select((t, i) => (float)(actual[i] * Math.Log(t + epsilon))).Sum();
 
         return -sum;
     }
     
-    public static int ArgMax(double[] array)
+    public static int ArgMax(float[] array)
     {
         if (array.Length == 0)
             throw new ArgumentException("Array is empty.");
 
         int maxIndex = 0;
-        double maxValue = array[0];
+        float maxValue = array[0];
 
         for (int i = 1; i < array.Length; i++)
         {

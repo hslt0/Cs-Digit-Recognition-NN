@@ -31,8 +31,8 @@ public static class DataLoader
             if (!int.TryParse(parts[0], out int label))
                 continue;
 
-            double[] pixelsRaw = parts.Skip(1).Select(byte.Parse).Select(b => (double)b).ToArray();
-            double[] pixels = NormalizePixels(pixelsRaw);
+            float[] pixelsRaw = parts.Skip(1).Select(byte.Parse).Select(b => (float)b).ToArray();
+            float[] pixels = NormalizePixels(pixelsRaw);
 
             var dp = new DataPoint(pixels, label);
             dataPoints.Add(dp);
@@ -41,12 +41,12 @@ public static class DataLoader
         return dataPoints;
     }
 
-    private static double[] NormalizePixels(double[] pixels)
+    private static float[] NormalizePixels(float[] pixels)
     {
-        return pixels.Select(p => p / 255.0).ToArray();
+        return pixels.Select(p => p / 255.0f).ToArray();
     }
     
-    public static (List<DataPoint> train, List<DataPoint> test) SplitData(List<DataPoint> data, double trainRatio = 0.8)
+    public static (List<DataPoint> train, List<DataPoint> test) SplitData(List<DataPoint> data, float trainRatio = 0.8f)
     {
         Shuffle(data);
         int trainCount = (int)(data.Count * trainRatio);
@@ -71,10 +71,10 @@ public static class DataLoader
         var list = new List<DataPoint>(count);
         for (int i = 0; i < count; i++)
         {
-            double[] pixels = new double[784];
+            float[] pixels = new float[784];
             for (int j = 0; j < 784; j++)
             {
-                pixels[j] = rnd.NextDouble();
+                pixels[j] = (float)rnd.NextDouble();
             }
             int label = rnd.Next(10);
             list.Add(new DataPoint(pixels, label));
