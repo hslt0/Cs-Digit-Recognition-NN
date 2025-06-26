@@ -2,11 +2,11 @@
 
 public class ModelData
 {
-    public double[][]? WeightsInputHidden { get; init; }
-    public double[][]? WeightsHiddenHidden { get; init; }
-    public double[][]? WeightsHiddenOutput { get; init; }
+    public float[][]? WeightsInputHidden { get; init; }
+    public float[][]? WeightsHiddenHidden { get; init; }
+    public float[][]? WeightsHiddenOutput { get; init; }
 
-    public double[][]? BiasHidden { get; init; }
-    public double[][]? BiasHidden2 { get; init; }
-    public double[][]? BiasOutput { get; init; }
+    public float[][]? BiasHidden { get; init; }
+    public float[][]? BiasHidden2 { get; init; }
+    public float[][]? BiasOutput { get; init; }
 }

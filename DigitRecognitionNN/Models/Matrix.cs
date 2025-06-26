@@ -4,11 +4,11 @@ namespace DigitRecognitionNN.Models;
 
 public class Matrix
 {
-    private readonly double[] data;
+    private readonly float[] data;
     public int Rows { get; }
     public int Cols { get; }
 
-    public double this[int row, int col]
+    public float this[int row, int col]
     {
         get => data[row * Cols + col];
         set => data[row * Cols + col] = value;
@@ -18,14 +18,14 @@ public class Matrix
     {
         Rows = rows;
         Cols = cols;
-        data = new double[rows * cols];
+        data = new float[rows * cols];
     }
 
-    public Matrix(double[,] input)
+    public Matrix(float[,] input)
     {
         Rows = input.GetLength(0);
         Cols = input.GetLength(1);
-        data = new double[Rows * Cols];
+        data = new float[Rows * Cols];
         for (int i = 0; i < Rows; i++)
         for (int j = 0; j < Cols; j++)
             this[i, j] = input[i, j];
@@ -53,9 +53,9 @@ public class Matrix
             data[i] = MathUtils.RandomWeight();
     }
 
-    public double[] ToArray() => data.ToArray();
+    public float[] ToArray() => data.ToArray();
 
-    public static Matrix FromArray(double[] array)
+    public static Matrix FromArray(float[] array)
     {
         var result = new Matrix(array.Length, 1);
         for (int i = 0; i < array.Length; i++)
@@ -63,19 +63,19 @@ public class Matrix
         return result;
     }
 
-    public double[][] ToJaggedArray()
+    public float[][] ToJaggedArray()
     {
-        var result = new double[Rows][];
+        var result = new float[Rows][];
         for (int i = 0; i < Rows; i++)
         {
-            result[i] = new double[Cols];
+            result[i] = new float[Cols];
             for (int j = 0; j < Cols; j++)
                 result[i][j] = this[i, j];
         }
         return result;
     }
 
-    public static Matrix FromJaggedArray(double[][] array)
+    public static Matrix FromJaggedArray(float[][] array)
     {
         int rows = array.Length;
         int cols = array[0].Length;
@@ -108,7 +108,7 @@ public class Matrix
         return result;
     }
 
-    public static Matrix operator *(Matrix a, double scalar)
+    public static Matrix operator *(Matrix a, float scalar)
     {
         var result = new Matrix(a.Rows, a.Cols);
         for (int i = 0; i < a.data.Length; i++)
@@ -133,7 +133,7 @@ public class Matrix
 
             for (int j = 0; j < bCols; j++)
             {
-                double sum = 0;
+                float sum = 0;
                 for (int k = 0; k < aCols; k++)
                 {
                     sum += a.data[aRowOffset + k] * b.data[k * bCols + j];

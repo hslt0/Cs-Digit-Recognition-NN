@@ -5,19 +5,19 @@ namespace DigitRecognitionNN.Utils;
 public static class ActivationFunctions
 {
     // Sigmoid for hidden (more classic way, relu is better tho)
-    //public static double Sigmoid(double x) => 1.0 / (1.0 + Math.Exp(-x));
-    //public static double SigmoidDerivative(double x) => x * (1.0 - x);
+    //public static float Sigmoid(float x) => 1.0 / (1.0 + Math.Exp(-x));
+    //public static float SigmoidDerivative(float x) => x * (1.0 - x);
     
     // Softmax for output
-    public static double[] Softmax(double[] input)
+    public static float[] Softmax(float[] input)
     {
-        double max = input.Max();
-        double sumExp = 0;
-        double[] expValues = new double[input.Length];
+        float max = input.Max();
+        float sumExp = 0;
+        float[] expValues = new float[input.Length];
 
         for (int i = 0; i < input.Length; i++)
         {
-            expValues[i] = Math.Exp(input[i] - max);
+            expValues[i] = (float)Math.Exp(input[i] - max);
             sumExp += expValues[i];
         }
 
@@ -30,8 +30,8 @@ public static class ActivationFunctions
     }
     
     // ReLU for hidden
-    private static double ReLu(double x) => Math.Max(0, x);
-    private static double ReLuDerivative(double x) => x > 0 ? 1 : 0;
+    private static float ReLu(float x) => Math.Max(0, x);
+    private static float ReLuDerivative(float x) => x > 0 ? 1 : 0;
 
     public static void ApplyReLu(Matrix m)
     {
@@ -50,5 +50,4 @@ public static class ActivationFunctions
             for (int j = 0; j < cols; j++)
                 delta[i, j] *= ReLuDerivative(z[i, j]);
     }
-
 }
