@@ -14,6 +14,7 @@ public class NeuralNetwork
     private Matrix biasOutput;
     
     private readonly double learningRate;
+    private readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = false };
 
     public NeuralNetwork(int inputSize, int hiddenSize, int outputSize, double learningRate)
     {
@@ -152,9 +153,8 @@ public class NeuralNetwork
             BiasHidden2 = biasHidden2.ToJaggedArray(),
             BiasOutput = biasOutput.ToJaggedArray()
         };
-
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        string json = JsonSerializer.Serialize(model, options);
+        
+        string json = JsonSerializer.Serialize(model, jsonSerializerOptions);
         File.WriteAllText(filename, json);
     }
     
@@ -164,7 +164,7 @@ public class NeuralNetwork
         var model = JsonSerializer.Deserialize<ModelData>(json);
 
         if (model == null)
-            throw new Exception("Не вдалося десеріалізувати модель");
+            throw new Exception("Deserialize error");
 
         weightsInputHidden = Matrix.FromJaggedArray(model.WeightsInputHidden);
         weightsHiddenHidden = Matrix.FromJaggedArray(model.WeightsHiddenHidden);

@@ -9,3 +9,4 @@ C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net
 C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\refint\DigitRecognitionNN.dll
 C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\DigitRecognitionNN.pdb
 C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\ref\DigitRecognitionNN.dll
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\DigitRecognitionNN\obj\Debug\net9.0\DigitRecognitionNN.sourcelink.json

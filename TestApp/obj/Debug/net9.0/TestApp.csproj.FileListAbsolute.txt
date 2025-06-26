@@ -17,3 +17,4 @@ C:\Users\STONE\RiderProjects\DigitRecognitionNN\TestApp\obj\Debug\net9.0\TestApp
 C:\Users\STONE\RiderProjects\DigitRecognitionNN\TestApp\obj\Debug\net9.0\TestApp.genruntimeconfig.cache
 C:\Users\STONE\RiderProjects\DigitRecognitionNN\TestApp\obj\Debug\net9.0\ref\TestApp.dll
 C:\Users\STONE\RiderProjects\DigitRecognitionNN\TestApp\bin\Debug\net9.0\Data\mnist_train.csv
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\TestApp\obj\Debug\net9.0\TestApp.sourcelink.json
