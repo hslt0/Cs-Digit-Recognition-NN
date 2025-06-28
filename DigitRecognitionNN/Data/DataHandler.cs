@@ -6,7 +6,8 @@ public static class DataLoader
 {
     public static List<DataPoint> LoadMnist(string filename, int fallbackCount = 1000)
     {
-        string fullPath = Path.Combine("Data", filename);
+        string baseDir = AppContext.BaseDirectory;
+        string fullPath = Path.Combine(baseDir, "Data", filename);
 
         Console.WriteLine($"Loading MNIST data from: {fullPath}");
         if (!File.Exists(fullPath))

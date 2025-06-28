@@ -17,5 +17,10 @@
         </None>
     </ItemGroup>
 
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize> <!-- не обов'язково, але корисно -->
+        <DefineConstants>TRACE</DefineConstants>
+    </PropertyGroup>
 
 </Project>
