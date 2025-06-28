@@ -1,4 +1,5 @@
-﻿using DigitRecognitionNN.Utils;
+﻿using System.Numerics;
+using DigitRecognitionNN.Utils;
 
 namespace DigitRecognitionNN.Models;
 
@@ -91,41 +92,81 @@ public class Matrix
         if (a.Rows != b.Rows || a.Cols != b.Cols)
             throw new InvalidOperationException("Matrices must have the same dimensions.");
 
+        int n = a.data.Length;
+        int width = Vector<float>.Count;
+        int i = 0;
+
         var result = new Matrix(a.Rows, a.Cols);
-        for (int i = 0; i < a.data.Length; i++)
+
+        for (; i <= n - width; i += width)
+        {
+            var va = new Vector<float>(a.data, i);
+            var vb = new Vector<float>(b.data, i);
+            (va + vb).CopyTo(result.data, i);
+        }
+
+        for (; i < n; i++)
             result.data[i] = a.data[i] + b.data[i];
+
         return result;
     }
 
     public static Matrix operator -(Matrix a, Matrix b)
     {
-        if (a.Rows != b.Rows || a.Cols != b.Cols)
-            throw new InvalidOperationException("Matrices must have the same dimensions.");
+        int n = a.data.Length;
+        int width = Vector<float>.Count;
+        int i = 0;
 
         var result = new Matrix(a.Rows, a.Cols);
-        for (int i = 0; i < a.data.Length; i++)
+
+        for (; i <= n - width; i += width)
+        {
+            var va = new Vector<float>(a.data, i);
+            var vb = new Vector<float>(b.data, i);
+            (va - vb).CopyTo(result.data, i);
+        }
+
+        for (; i < n; i++)
             result.data[i] = a.data[i] - b.data[i];
+
         return result;
     }
 
     public static Matrix operator *(Matrix a, float scalar)
     {
         var result = new Matrix(a.Rows, a.Cols);
-        for (int i = 0; i < a.data.Length; i++)
+
+        int n = a.data.Length;
+        int width = Vector<float>.Count;
+        int i = 0;
+
+        var vScalar = new Vector<float>(scalar);
+
+        for (; i <= n - width; i += width)
+        {
+            var va = new Vector<float>(a.data, i);
+            (va * vScalar).CopyTo(result.data, i);
+        }
+
+        for (; i < n; i++)
             result.data[i] = a.data[i] * scalar;
+
         return result;
     }
-
+    
     public static Matrix operator *(Matrix a, Matrix b)
     {
         if (a.Cols != b.Rows)
             throw new InvalidOperationException("A.Cols must equal B.Rows.");
-        
+
         int aRows = a.Rows;
         int aCols = a.Cols;
         int bCols = b.Cols;
+        int width = Vector<float>.Count;
 
+        var bT = b.Transpose();
         var result = new Matrix(aRows, bCols);
+
         for (int i = 0; i < aRows; i++)
         {
             int aRowOffset = i * aCols;
@@ -133,14 +174,25 @@ public class Matrix
 
             for (int j = 0; j < bCols; j++)
             {
+                int bRowOffset = j * aCols;
+
                 float sum = 0;
-                for (int k = 0; k < aCols; k++)
+                int k = 0;
+
+                for (; k <= aCols - width; k += width)
                 {
-                    sum += a.data[aRowOffset + k] * b.data[k * bCols + j];
+                    var va = new Vector<float>(a.data, aRowOffset + k);
+                    var vb = new Vector<float>(bT.data, bRowOffset + k);
+                    sum += Vector.Dot(va, vb);
                 }
+
+                for (; k < aCols; k++)
+                    sum += a.data[aRowOffset + k] * bT.data[bRowOffset + k];
+
                 result.data[rRowOffset + j] = sum;
             }
         }
+
         return result;
     }
 }
