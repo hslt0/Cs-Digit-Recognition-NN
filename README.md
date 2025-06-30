@@ -42,6 +42,18 @@ DigitRecognitionNN/
 
 ## 🚀 Getting Started
 
+### Option 1: Use the Prebuilt Executable (Windows)
+
+1. Go to the [Releases](https://github.com/your-username/DigitRecognitionNN/releases) page.
+2. Download the latest `.zip` archive.
+3. Extract it and run:
+
+```bash
+TestApp.exe
+```
+
+### Option 2: Build from Source
+
 ### 1. Clone the repository
 
 ```bash
