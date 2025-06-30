@@ -2,7 +2,7 @@
 
 ## 🧠 Custom C# Neural Network for Digit Recognition
 
-**DigitRecognitionNN** is a fully custom implementation of a neural network in pure **C#**, designed to recognize handwritten digits from the [MNIST dataset](http://yann.lecun.com/exdb/mnist/). It uses no external machine learning libraries or frameworks.
+**DigitRecognitionNN** is a fully custom implementation of a neural network in pure **C#**, designed to recognize handwritten digits from the [MNIST dataset]([http://yann.lecun.com/exdb/mnist/](https://www.kaggle.com/datasets/oddrationale/mnist-in-csv)). It uses no external machine learning libraries or frameworks.
 
 This project is ideal for learning purposes, experimentation with neural network architecture, SIMD acceleration, and custom model serialization.
 
