@@ -44,7 +44,7 @@ DigitRecognitionNN/
 
 ### Option 1: Use the Prebuilt Executable (Windows)
 
-1. Go to the [Releases](https://github.com/your-username/DigitRecognitionNN/releases) page.
+1. Go to the [Releases](https://github.com/hslt0/Cs-Digit-Recognition-NN/releases/tag/v1.0) page.
 2. Download the latest `.zip` archive.
 3. Extract it and run:
 
