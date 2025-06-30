@@ -171,5 +171,5 @@ This project is licensed under the MIT License.
 
 ## ✍️ Author
 
-**Victor Gerasymenko**  
+**Viktor Herasymenko**  
 Created for learning, experimentation, and educational demonstration of low-level neural network logic in C#.
