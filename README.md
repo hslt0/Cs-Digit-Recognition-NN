@@ -52,6 +52,24 @@ DigitRecognitionNN/
 TestApp.exe
 ```
 
+#### ⚠️ Windows SmartScreen Warning
+
+When you run the `TestApp.exe` file, Windows may display a warning like:
+
+> **Windows protected your PC**  
+> Microsoft Defender SmartScreen prevented an unrecognized app from starting.
+
+This happens because the application is **not digitally signed** with a commercial certificate.
+
+#### ✅ How to Run Anyway
+
+If you trust this application (it's open-source and safe):
+
+1. Click **"More info"** in the warning window.
+2. Click **"Run anyway"**.
+
+The app will start normally.
+
 ### Option 2: Build from Source
 
 ### 1. Clone the repository
