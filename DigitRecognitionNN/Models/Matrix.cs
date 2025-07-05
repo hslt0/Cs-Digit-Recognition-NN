@@ -162,37 +162,59 @@ public class Matrix
         int aRows = a.Rows;
         int aCols = a.Cols;
         int bCols = b.Cols;
-        int width = Vector<float>.Count;
+        int processorCount = Environment.ProcessorCount;
+        int chunkSize = aRows / processorCount;
 
         var bT = b.Transpose();
         var result = new Matrix(aRows, bCols);
 
-        for (int i = 0; i < aRows; i++)
+        Parallel.For(0, processorCount, i =>
+        {
+            int start = i * chunkSize;
+            int end = (i == processorCount - 1) ? aRows : start + chunkSize;
+        
+            ProcessMatrixChunkSpan(a, bT, result, start, end, aCols, bCols);
+        });
+
+        return result;
+    }
+
+    private static void ProcessMatrixChunkSpan(Matrix a, Matrix bT, Matrix result, int startRow, int endRow, int aCols, int bCols)
+    {
+        for (int i = startRow; i < endRow; i++)
         {
             int aRowOffset = i * aCols;
             int rRowOffset = i * bCols;
+            var aRowSpan = new Span<float>(a.data, aRowOffset, aCols);
 
             for (int j = 0; j < bCols; j++)
             {
                 int bRowOffset = j * aCols;
-
-                float sum = 0;
-                int k = 0;
-
-                for (; k <= aCols - width; k += width)
-                {
-                    var va = new Vector<float>(a.data, aRowOffset + k);
-                    var vb = new Vector<float>(bT.data, bRowOffset + k);
-                    sum += Vector.Dot(va, vb);
-                }
-
-                for (; k < aCols; k++)
-                    sum += a.data[aRowOffset + k] * bT.data[bRowOffset + k];
-
+                var bRowSpan = new Span<float>(bT.data, bRowOffset, aCols);
+            
+                float sum = ProcessVectorDotSpan(aRowSpan, bRowSpan);
                 result.data[rRowOffset + j] = sum;
             }
         }
+    }
 
-        return result;
+    private static float ProcessVectorDotSpan(Span<float> a, Span<float> b)
+    {
+        int n = a.Length;
+        int width = Vector<float>.Count;
+        float sum = 0;
+        int i = 0;
+    
+        for (; i <= n - width; i += width)
+        {
+            var va = new Vector<float>(a.Slice(i, width));
+            var vb = new Vector<float>(b.Slice(i, width));
+            sum += Vector.Dot(va, vb);
+        }
+        
+        for (; i < n; i++)
+            sum += a[i] * b[i];
+        
+        return sum;
     }
 }

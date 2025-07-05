@@ -62,6 +62,9 @@ internal static class Program
                               $"Predict digit: {predictedDigit}, " +
                               $"Confidence: {prediction[predictedDigit]:F2}");
         }
+        
+        //7. Wait for finish
+        Console.ReadLine();
     }
 
 }

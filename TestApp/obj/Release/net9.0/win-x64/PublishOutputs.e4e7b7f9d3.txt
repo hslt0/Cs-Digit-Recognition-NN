@@ -1,0 +1,3 @@
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\TestApp\bin\Release\net9.0\win-x64\publish\TestApp.pdb
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\TestApp\bin\Release\net9.0\win-x64\publish\DigitRecognitionNN.pdb
+C:\Users\STONE\RiderProjects\DigitRecognitionNN\TestApp\bin\Release\net9.0\win-x64\publish\TestApp.exe
