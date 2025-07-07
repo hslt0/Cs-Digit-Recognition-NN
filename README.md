@@ -36,8 +36,8 @@ DigitRecognitionNN/
 ## 🔧 Requirements
 
 - [.NET SDK 9.0+](https://dotnet.microsoft.com/en-us/download)
-- `mnist_train.csv` with 784 pixel values + label per row (see format below)
-
+- `mnist_train.csv` with 784 pixel values + 1 label per row (CSV format: 785 values per line)
+- [Git LFS](https://git-lfs.com/) installed and initialized
 ---
 
 ## 🚀 Getting Started
@@ -76,7 +76,7 @@ The app will start normally.
 
 ```bash
 git clone https://github.com/hslt0/Cs-Digit-Recognition-NN.git
-cd DigitRecognitionNN
+cd Cs-Digit-Recognition-NN
 ```
 
 ### 2. Build the project
