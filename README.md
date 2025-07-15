@@ -128,7 +128,7 @@ The core of all neural operations is the custom `Matrix` class.
   - `.Transpose()`, `.Copy()`, `.ToArray()`, `.FromArray()`
   - `.ToJaggedArray()`, `.FromJaggedArray()`
 - SIMD acceleration using `System.Numerics.Vector<float>`
-- Multithreading for multiply
+- Multithreading for matrix multiplication
 - Used throughout the network for all forward/backward calculations
 
 ---
