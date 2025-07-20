@@ -72,20 +72,20 @@ The app will start normally.
 
 ### Option 2: Build from Source
 
-### 1. Clone the repository
+#### 1. Clone the repository
 
 ```bash
 git clone https://github.com/hslt0/Cs-Digit-Recognition-NN.git
 cd Cs-Digit-Recognition-NN
 ```
 
-### 2. Build the project
+#### 2. Build the project
 
 ```bash
 dotnet build
 ```
 
-### 3. Run the console app
+#### 3. Run the console app
 
 ```bash
 dotnet run --project TestApp
