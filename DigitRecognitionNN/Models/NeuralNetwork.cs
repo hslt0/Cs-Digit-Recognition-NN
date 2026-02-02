@@ -54,7 +54,8 @@ public class NeuralNetwork
         var output = _weightsHiddenOutput * hidden2 + _biasOutput; // (10 x 16) * (16 x 1) + (10 x 1)
 
         // Apply Softmax to vector
-        return ActivationFunctions.Softmax(output.ToArray());
+        ActivationFunctions.ApplySoftmax(output);
+        return output.ToArray();
     }
     
     private void Train(float[] input, float[] target)
@@ -69,7 +70,7 @@ public class NeuralNetwork
         var a2 = z2.Copy(); ActivationFunctions.ApplyReLu(a2);
 
         var z3 = _weightsHiddenOutput * a2 + _biasOutput;
-        var output = Matrix.FromArray(ActivationFunctions.Softmax(z3.ToArray()));
+        var output = z3.Copy(); ActivationFunctions.ApplySoftmax(output);
 
         // ==== 2. ERROR ====
         var targetMatrix = Matrix.FromArray(target);
@@ -108,31 +109,31 @@ public class NeuralNetwork
 
     public void TrainBatch(List<DataPoint> data, int epochs)
     {
-        for (int epoch = 0; epoch < epochs; epoch++)
+        for (var epoch = 0; epoch < epochs; epoch++)
         {
             DataLoader.Shuffle(data);
             float totalLoss = 0;
 
             foreach (var dp in data)
             {
-                float[] prediction = Predict(dp.Input);
+                var prediction = Predict(dp.Input);
                 totalLoss += MathUtils.CrossEntropy(prediction, dp.Target);
                 Train(dp.Input, dp.Target);
             }
 
-            float averageLoss = totalLoss / data.Count;
+            var averageLoss = totalLoss / data.Count;
             Console.WriteLine($"Epoch {epoch + 1}/{epochs} completed. Avg Loss: {averageLoss:F4}");
         }
     }
     
     public float TestAccuracy(List<DataPoint> testData)
     {
-        int correctCount = 0;
+        var correctCount = 0;
 
         foreach (var dp in testData)
         {
-            float[] prediction = Predict(dp.Input);
-            int predictedLabel = MathUtils.ArgMax(prediction);
+            var prediction = Predict(dp.Input);
+            var predictedLabel = MathUtils.ArgMax(prediction);
 
             if (predictedLabel == dp.Label)
                 correctCount++;
@@ -154,13 +155,13 @@ public class NeuralNetwork
             BiasOutput = _biasOutput.ToJaggedArray()
         };
         
-        string json = JsonSerializer.Serialize(model, _jsonSerializerOptions);
+        var json = JsonSerializer.Serialize(model, _jsonSerializerOptions);
         File.WriteAllText(filename, json);
     }
     
     public void LoadModel(string filename)
     {
-        string json = File.ReadAllText(filename);
+        var json = File.ReadAllText(filename);
         var model = JsonSerializer.Deserialize<ModelData>(json);
 
         if (model == null)

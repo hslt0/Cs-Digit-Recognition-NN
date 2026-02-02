@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "wnHmTQHPj9E=",
+  "dgSpecHash": "6FvXgcI63J0=",
   "success": true,
   "projectFilePath": "C:\\Users\\Work\\RiderProjects\\Cs-Digit-Recognition-NN\\DigitRecognitionNN\\DigitRecognitionNN.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Work\\.nuget\\packages\\system.numerics.tensors\\10.0.2\\system.numerics.tensors.10.0.2.nupkg.sha512"
+  ],
   "logs": []
 }
