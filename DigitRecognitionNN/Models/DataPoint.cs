@@ -15,7 +15,7 @@ public class DataPoint
     
     private float[] CreateOneHot(int label)
     {
-        float[] result = new float[10];
+        var result = new float[10];
         result[label] = 1.0f;
         return result;
     }

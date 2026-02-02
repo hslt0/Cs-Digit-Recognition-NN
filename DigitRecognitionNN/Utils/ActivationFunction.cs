@@ -11,17 +11,17 @@ public static class ActivationFunctions
     // Softmax for output
     public static float[] Softmax(float[] input)
     {
-        float max = input.Max();
+        var max = input.Max();
         float sumExp = 0;
-        float[] expValues = new float[input.Length];
+        var expValues = new float[input.Length];
 
-        for (int i = 0; i < input.Length; i++)
+        for (var i = 0; i < input.Length; i++)
         {
             expValues[i] = (float)Math.Exp(input[i] - max);
             sumExp += expValues[i];
         }
 
-        for (int i = 0; i < input.Length; i++)
+        for (var i = 0; i < input.Length; i++)
         {
             expValues[i] /= sumExp;
         }
@@ -35,19 +35,19 @@ public static class ActivationFunctions
 
     public static void ApplyReLu(Matrix m)
     {
-        int rows = m.Rows;
-        int cols = m.Cols;
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < cols; j++)
+        var rows = m.Rows;
+        var cols = m.Cols;
+        for (var i = 0; i < rows; i++)
+            for (var j = 0; j < cols; j++)
                 m[i, j] = ReLu(m[i, j]);
     }
 
     public static void ApplyReLuDerivative(Matrix z, Matrix delta)
     {
-        int rows = z.Rows;
-        int cols = z.Cols;
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < cols; j++)
+        var rows = z.Rows;
+        var cols = z.Cols;
+        for (var i = 0; i < rows; i++)
+            for (var j = 0; j < cols; j++)
                 delta[i, j] *= ReLuDerivative(z[i, j]);
     }
 }

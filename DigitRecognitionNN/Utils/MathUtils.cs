@@ -23,8 +23,8 @@ public static class MathUtils
         if (predicted.Length != actual.Length)
             throw new ArgumentException("Arrays must be the same length.");
 
-        float epsilon = 1e-12f; // avoiding log(0)
-        float sum = predicted.Select((t, i) => (float)(actual[i] * Math.Log(t + epsilon))).Sum();
+        var epsilon = 1e-12f; // avoiding log(0)
+        var sum = predicted.Select((t, i) => (float)(actual[i] * Math.Log(t + epsilon))).Sum();
 
         return -sum;
     }
@@ -34,10 +34,10 @@ public static class MathUtils
         if (array.Length == 0)
             throw new ArgumentException("Array is empty.");
 
-        int maxIndex = 0;
-        float maxValue = array[0];
+        var maxIndex = 0;
+        var maxValue = array[0];
 
-        for (int i = 1; i < array.Length; i++)
+        for (var i = 1; i < array.Length; i++)
         {
             if (!(array[i] > maxValue)) continue;
             

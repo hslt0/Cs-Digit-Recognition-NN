@@ -108,31 +108,31 @@ public class NeuralNetwork
 
     public void TrainBatch(List<DataPoint> data, int epochs)
     {
-        for (int epoch = 0; epoch < epochs; epoch++)
+        for (var epoch = 0; epoch < epochs; epoch++)
         {
             DataLoader.Shuffle(data);
             float totalLoss = 0;
 
             foreach (var dp in data)
             {
-                float[] prediction = Predict(dp.Input);
+                var prediction = Predict(dp.Input);
                 totalLoss += MathUtils.CrossEntropy(prediction, dp.Target);
                 Train(dp.Input, dp.Target);
             }
 
-            float averageLoss = totalLoss / data.Count;
+            var averageLoss = totalLoss / data.Count;
             Console.WriteLine($"Epoch {epoch + 1}/{epochs} completed. Avg Loss: {averageLoss:F4}");
         }
     }
     
     public float TestAccuracy(List<DataPoint> testData)
     {
-        int correctCount = 0;
+        var correctCount = 0;
 
         foreach (var dp in testData)
         {
-            float[] prediction = Predict(dp.Input);
-            int predictedLabel = MathUtils.ArgMax(prediction);
+            var prediction = Predict(dp.Input);
+            var predictedLabel = MathUtils.ArgMax(prediction);
 
             if (predictedLabel == dp.Label)
                 correctCount++;
@@ -154,13 +154,13 @@ public class NeuralNetwork
             BiasOutput = _biasOutput.ToJaggedArray()
         };
         
-        string json = JsonSerializer.Serialize(model, _jsonSerializerOptions);
+        var json = JsonSerializer.Serialize(model, _jsonSerializerOptions);
         File.WriteAllText(filename, json);
     }
     
     public void LoadModel(string filename)
     {
-        string json = File.ReadAllText(filename);
+        var json = File.ReadAllText(filename);
         var model = JsonSerializer.Deserialize<ModelData>(json);
 
         if (model == null)
