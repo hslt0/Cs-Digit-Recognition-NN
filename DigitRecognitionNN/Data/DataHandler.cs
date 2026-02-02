@@ -72,12 +72,12 @@ public static class DataLoader
         var list = new List<DataPoint>(count);
         for (int i = 0; i < count; i++)
         {
-            float[] pixels = new float[784];
-            for (int j = 0; j < 784; j++)
+            var pixels = new float[784];
+            for (var j = 0; j < 784; j++)
             {
                 pixels[j] = (float)rnd.NextDouble();
             }
-            int label = rnd.Next(10);
+            var label = rnd.Next(10);
             list.Add(new DataPoint(pixels, label));
         }
         return list;

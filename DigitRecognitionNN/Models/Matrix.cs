@@ -5,28 +5,28 @@ namespace DigitRecognitionNN.Models;
 
 public class Matrix
 {
-    private readonly float[] data;
+    private readonly float[] _data;
     public int Rows { get; }
     public int Cols { get; }
 
     public float this[int row, int col]
     {
-        get => data[row * Cols + col];
-        set => data[row * Cols + col] = value;
+        get => _data[row * Cols + col];
+        set => _data[row * Cols + col] = value;
     }
 
     public Matrix(int rows, int cols)
     {
         Rows = rows;
         Cols = cols;
-        data = new float[rows * cols];
+        _data = new float[rows * cols];
     }
 
     public Matrix(float[,] input)
     {
         Rows = input.GetLength(0);
         Cols = input.GetLength(1);
-        data = new float[Rows * Cols];
+        _data = new float[Rows * Cols];
         for (int i = 0; i < Rows; i++)
         for (int j = 0; j < Cols; j++)
             this[i, j] = input[i, j];
@@ -35,7 +35,7 @@ public class Matrix
     public Matrix Copy()
     {
         var result = new Matrix(Rows, Cols);
-        Array.Copy(data, result.data, data.Length);
+        Array.Copy(_data, result._data, _data.Length);
         return result;
     }
 
@@ -50,11 +50,11 @@ public class Matrix
 
     public void RandomizeWeights()
     {
-        for (int i = 0; i < data.Length; i++)
-            data[i] = MathUtils.RandomWeight();
+        for (int i = 0; i < _data.Length; i++)
+            _data[i] = MathUtils.RandomWeight();
     }
 
-    public float[] ToArray() => data.ToArray();
+    public float[] ToArray() => _data.ToArray();
 
     public static Matrix FromArray(float[] array)
     {
@@ -92,7 +92,7 @@ public class Matrix
         if (a.Rows != b.Rows || a.Cols != b.Cols)
             throw new InvalidOperationException("Matrices must have the same dimensions.");
 
-        int n = a.data.Length;
+        int n = a._data.Length;
         int width = Vector<float>.Count;
         int i = 0;
 
@@ -100,20 +100,20 @@ public class Matrix
 
         for (; i <= n - width; i += width)
         {
-            var va = new Vector<float>(a.data, i);
-            var vb = new Vector<float>(b.data, i);
-            (va + vb).CopyTo(result.data, i);
+            var va = new Vector<float>(a._data, i);
+            var vb = new Vector<float>(b._data, i);
+            (va + vb).CopyTo(result._data, i);
         }
 
         for (; i < n; i++)
-            result.data[i] = a.data[i] + b.data[i];
+            result._data[i] = a._data[i] + b._data[i];
 
         return result;
     }
 
     public static Matrix operator -(Matrix a, Matrix b)
     {
-        int n = a.data.Length;
+        int n = a._data.Length;
         int width = Vector<float>.Count;
         int i = 0;
 
@@ -121,13 +121,13 @@ public class Matrix
 
         for (; i <= n - width; i += width)
         {
-            var va = new Vector<float>(a.data, i);
-            var vb = new Vector<float>(b.data, i);
-            (va - vb).CopyTo(result.data, i);
+            var va = new Vector<float>(a._data, i);
+            var vb = new Vector<float>(b._data, i);
+            (va - vb).CopyTo(result._data, i);
         }
 
         for (; i < n; i++)
-            result.data[i] = a.data[i] - b.data[i];
+            result._data[i] = a._data[i] - b._data[i];
 
         return result;
     }
@@ -136,7 +136,7 @@ public class Matrix
     {
         var result = new Matrix(a.Rows, a.Cols);
 
-        int n = a.data.Length;
+        int n = a._data.Length;
         int width = Vector<float>.Count;
         int i = 0;
 
@@ -144,12 +144,12 @@ public class Matrix
 
         for (; i <= n - width; i += width)
         {
-            var va = new Vector<float>(a.data, i);
-            (va * vScalar).CopyTo(result.data, i);
+            var va = new Vector<float>(a._data, i);
+            (va * vScalar).CopyTo(result._data, i);
         }
 
         for (; i < n; i++)
-            result.data[i] = a.data[i] * scalar;
+            result._data[i] = a._data[i] * scalar;
 
         return result;
     }
@@ -185,15 +185,15 @@ public class Matrix
         {
             int aRowOffset = i * aCols;
             int rRowOffset = i * bCols;
-            var aRowSpan = new Span<float>(a.data, aRowOffset, aCols);
+            var aRowSpan = new Span<float>(a._data, aRowOffset, aCols);
 
             for (int j = 0; j < bCols; j++)
             {
                 int bRowOffset = j * aCols;
-                var bRowSpan = new Span<float>(bT.data, bRowOffset, aCols);
+                var bRowSpan = new Span<float>(bT._data, bRowOffset, aCols);
             
                 float sum = ProcessVectorDotSpan(aRowSpan, bRowSpan);
-                result.data[rRowOffset + j] = sum;
+                result._data[rRowOffset + j] = sum;
             }
         }
     }

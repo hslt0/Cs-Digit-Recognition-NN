@@ -6,35 +6,35 @@ namespace DigitRecognitionNN.Models;
 
 public class NeuralNetwork
 {
-    private Matrix weightsInputHidden;
-    private Matrix weightsHiddenHidden;
-    private Matrix weightsHiddenOutput;
-    private Matrix biasHidden;
-    private Matrix biasHidden2;
-    private Matrix biasOutput;
+    private Matrix _weightsInputHidden;
+    private Matrix _weightsHiddenHidden;
+    private Matrix _weightsHiddenOutput;
+    private Matrix _biasHidden;
+    private Matrix _biasHidden2;
+    private Matrix _biasOutput;
     
-    private readonly float learningRate;
-    private readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = false };
+    private readonly float _learningRate;
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new() { WriteIndented = false };
 
     public NeuralNetwork(int inputSize, int hiddenSize, int outputSize, float learningRate)
     {
-        this.learningRate = learningRate;
-        weightsInputHidden = new Matrix(hiddenSize, inputSize);         // 16 x 784
-        weightsHiddenHidden = new Matrix(hiddenSize, hiddenSize);       // 16 x 16
-        weightsHiddenOutput = new Matrix(outputSize, hiddenSize);       // 10 x 16
+        this._learningRate = learningRate;
+        _weightsInputHidden = new Matrix(hiddenSize, inputSize);         // 16 x 784
+        _weightsHiddenHidden = new Matrix(hiddenSize, hiddenSize);       // 16 x 16
+        _weightsHiddenOutput = new Matrix(outputSize, hiddenSize);       // 10 x 16
 
-        biasHidden = new Matrix(hiddenSize, 1);                          // 16 x 1
-        biasHidden2 = new Matrix(hiddenSize, 1);                         // 16 x 1
-        biasOutput = new Matrix(outputSize, 1);                          // 10 x 1
+        _biasHidden = new Matrix(hiddenSize, 1);                          // 16 x 1
+        _biasHidden2 = new Matrix(hiddenSize, 1);                         // 16 x 1
+        _biasOutput = new Matrix(outputSize, 1);                          // 10 x 1
 
         // Ініціалізація ваг
-        weightsInputHidden.RandomizeWeights();
-        weightsHiddenHidden.RandomizeWeights();
-        weightsHiddenOutput.RandomizeWeights();
+        _weightsInputHidden.RandomizeWeights();
+        _weightsHiddenHidden.RandomizeWeights();
+        _weightsHiddenOutput.RandomizeWeights();
 
-        biasHidden.RandomizeWeights();
-        biasHidden2.RandomizeWeights();
-        biasOutput.RandomizeWeights();
+        _biasHidden.RandomizeWeights();
+        _biasHidden2.RandomizeWeights();
+        _biasOutput.RandomizeWeights();
 
     }
 
@@ -43,15 +43,15 @@ public class NeuralNetwork
         var inputMatrix = Matrix.FromArray(input); // 784 x 1
 
         // Layer 1: input → hidden1
-        var hidden1 = weightsInputHidden * inputMatrix + biasHidden; // (16 x 784) * (784 x 1) + (16 x 1)
+        var hidden1 = _weightsInputHidden * inputMatrix + _biasHidden; // (16 x 784) * (784 x 1) + (16 x 1)
         ActivationFunctions.ApplyReLu(hidden1); // in-place
 
         // Layer 2: hidden1 → hidden2
-        var hidden2 = weightsHiddenHidden * hidden1 + biasHidden2; // (16 x 16) * (16 x 1) + (16 x 1)
+        var hidden2 = _weightsHiddenHidden * hidden1 + _biasHidden2; // (16 x 16) * (16 x 1) + (16 x 1)
         ActivationFunctions.ApplyReLu(hidden2);
 
         // Output layer
-        var output = weightsHiddenOutput * hidden2 + biasOutput; // (10 x 16) * (16 x 1) + (10 x 1)
+        var output = _weightsHiddenOutput * hidden2 + _biasOutput; // (10 x 16) * (16 x 1) + (10 x 1)
 
         // Apply Softmax to vector
         return ActivationFunctions.Softmax(output.ToArray());
@@ -62,13 +62,13 @@ public class NeuralNetwork
         // ==== 1. FORWARD ====
         var inputMatrix = Matrix.FromArray(input);
     
-        var z1 = weightsInputHidden * inputMatrix + biasHidden;
+        var z1 = _weightsInputHidden * inputMatrix + _biasHidden;
         var a1 = z1.Copy(); ActivationFunctions.ApplyReLu(a1);
 
-        var z2 = weightsHiddenHidden * a1 + biasHidden2;
+        var z2 = _weightsHiddenHidden * a1 + _biasHidden2;
         var a2 = z2.Copy(); ActivationFunctions.ApplyReLu(a2);
 
-        var z3 = weightsHiddenOutput * a2 + biasOutput;
+        var z3 = _weightsHiddenOutput * a2 + _biasOutput;
         var output = Matrix.FromArray(ActivationFunctions.Softmax(z3.ToArray()));
 
         // ==== 2. ERROR ====
@@ -82,28 +82,28 @@ public class NeuralNetwork
         var gradBiasOut = errorOutput;
 
         // Hidden layer 2
-        var errorHidden2 = (weightsHiddenOutput.Transpose() * errorOutput);
+        var errorHidden2 = (_weightsHiddenOutput.Transpose() * errorOutput);
         ActivationFunctions.ApplyReLuDerivative(z2, errorHidden2); // δ * ReLU'(z)
 
         var gradWeightsHidden2 = errorHidden2 * a1.Transpose();
         var gradBiasHidden2 = errorHidden2;
 
         // Hidden layer 1
-        var errorHidden1 = (weightsHiddenHidden.Transpose() * errorHidden2);
+        var errorHidden1 = (_weightsHiddenHidden.Transpose() * errorHidden2);
         ActivationFunctions.ApplyReLuDerivative(z1, errorHidden1);
 
         var gradWeightsHidden1 = errorHidden1 * inputMatrix.Transpose();
         var gradBiasHidden1 = errorHidden1;
 
         // ==== 4. UPDATE WEIGHTS ====
-        weightsHiddenOutput -= gradWeightsOut * learningRate;
-        biasOutput -= gradBiasOut * learningRate;
+        _weightsHiddenOutput -= gradWeightsOut * _learningRate;
+        _biasOutput -= gradBiasOut * _learningRate;
 
-        weightsHiddenHidden -= gradWeightsHidden2 * learningRate;
-        biasHidden2 -= gradBiasHidden2 * learningRate;
+        _weightsHiddenHidden -= gradWeightsHidden2 * _learningRate;
+        _biasHidden2 -= gradBiasHidden2 * _learningRate;
 
-        weightsInputHidden -= gradWeightsHidden1 * learningRate;
-        biasHidden -= gradBiasHidden1 * learningRate;
+        _weightsInputHidden -= gradWeightsHidden1 * _learningRate;
+        _biasHidden -= gradBiasHidden1 * _learningRate;
     }
 
     public void TrainBatch(List<DataPoint> data, int epochs)
@@ -145,16 +145,16 @@ public class NeuralNetwork
     {
         var model = new ModelData
         {
-            WeightsInputHidden = weightsInputHidden.ToJaggedArray(),
-            WeightsHiddenHidden = weightsHiddenHidden.ToJaggedArray(),
-            WeightsHiddenOutput = weightsHiddenOutput.ToJaggedArray(),
+            WeightsInputHidden = _weightsInputHidden.ToJaggedArray(),
+            WeightsHiddenHidden = _weightsHiddenHidden.ToJaggedArray(),
+            WeightsHiddenOutput = _weightsHiddenOutput.ToJaggedArray(),
         
-            BiasHidden = biasHidden.ToJaggedArray(),
-            BiasHidden2 = biasHidden2.ToJaggedArray(),
-            BiasOutput = biasOutput.ToJaggedArray()
+            BiasHidden = _biasHidden.ToJaggedArray(),
+            BiasHidden2 = _biasHidden2.ToJaggedArray(),
+            BiasOutput = _biasOutput.ToJaggedArray()
         };
         
-        string json = JsonSerializer.Serialize(model, jsonSerializerOptions);
+        string json = JsonSerializer.Serialize(model, _jsonSerializerOptions);
         File.WriteAllText(filename, json);
     }
     
@@ -166,13 +166,13 @@ public class NeuralNetwork
         if (model == null)
             throw new Exception("Deserialize error");
 
-        if (model.WeightsInputHidden != null) weightsInputHidden = Matrix.FromJaggedArray(model.WeightsInputHidden);
-        if (model.WeightsHiddenHidden != null) weightsHiddenHidden = Matrix.FromJaggedArray(model.WeightsHiddenHidden);
-        if (model.WeightsHiddenOutput != null) weightsHiddenOutput = Matrix.FromJaggedArray(model.WeightsHiddenOutput);
+        if (model.WeightsInputHidden != null) _weightsInputHidden = Matrix.FromJaggedArray(model.WeightsInputHidden);
+        if (model.WeightsHiddenHidden != null) _weightsHiddenHidden = Matrix.FromJaggedArray(model.WeightsHiddenHidden);
+        if (model.WeightsHiddenOutput != null) _weightsHiddenOutput = Matrix.FromJaggedArray(model.WeightsHiddenOutput);
 
-        if (model.BiasHidden != null) biasHidden = Matrix.FromJaggedArray(model.BiasHidden);
-        if (model.BiasHidden2 != null) biasHidden2 = Matrix.FromJaggedArray(model.BiasHidden2);
-        if (model.BiasOutput != null) biasOutput = Matrix.FromJaggedArray(model.BiasOutput);
+        if (model.BiasHidden != null) _biasHidden = Matrix.FromJaggedArray(model.BiasHidden);
+        if (model.BiasHidden2 != null) _biasHidden2 = Matrix.FromJaggedArray(model.BiasHidden2);
+        if (model.BiasOutput != null) _biasOutput = Matrix.FromJaggedArray(model.BiasOutput);
     }
 
 }
