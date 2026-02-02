@@ -10,3 +10,4 @@ C:\Users\Work\RiderProjects\Cs-Digit-Recognition-NN\DigitRecognitionNN\obj\Debug
 C:\Users\Work\RiderProjects\Cs-Digit-Recognition-NN\DigitRecognitionNN\obj\Debug\net10.0\refint\DigitRecognitionNN.dll
 C:\Users\Work\RiderProjects\Cs-Digit-Recognition-NN\DigitRecognitionNN\obj\Debug\net10.0\DigitRecognitionNN.pdb
 C:\Users\Work\RiderProjects\Cs-Digit-Recognition-NN\DigitRecognitionNN\obj\Debug\net10.0\ref\DigitRecognitionNN.dll
+C:\Users\Work\RiderProjects\Cs-Digit-Recognition-NN\DigitRecognitionNN\obj\Debug\net10.0\DigitRecognitionNN.csproj.AssemblyReference.cache

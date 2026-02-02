@@ -54,7 +54,8 @@ public class NeuralNetwork
         var output = _weightsHiddenOutput * hidden2 + _biasOutput; // (10 x 16) * (16 x 1) + (10 x 1)
 
         // Apply Softmax to vector
-        return ActivationFunctions.Softmax(output.ToArray());
+        ActivationFunctions.ApplySoftmax(output);
+        return output.ToArray();
     }
     
     private void Train(float[] input, float[] target)
@@ -69,7 +70,7 @@ public class NeuralNetwork
         var a2 = z2.Copy(); ActivationFunctions.ApplyReLu(a2);
 
         var z3 = _weightsHiddenOutput * a2 + _biasOutput;
-        var output = Matrix.FromArray(ActivationFunctions.Softmax(z3.ToArray()));
+        var output = z3.Copy(); ActivationFunctions.ApplySoftmax(output);
 
         // ==== 2. ERROR ====
         var targetMatrix = Matrix.FromArray(target);
