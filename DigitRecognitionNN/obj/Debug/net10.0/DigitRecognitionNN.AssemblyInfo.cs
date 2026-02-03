@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DigitRecognitionNN")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a2f77e8810fd028cc0c7e34ca674fcbf32253ee")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+388dc023b4274e3b5f64ab8455a2a0172ba243f0")]
 [assembly: System.Reflection.AssemblyProductAttribute("DigitRecognitionNN")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DigitRecognitionNN")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
