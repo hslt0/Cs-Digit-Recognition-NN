@@ -35,7 +35,7 @@ DigitRecognitionNN/
 
 ## 🔧 Requirements
 
-- [.NET SDK 9.0+](https://dotnet.microsoft.com/en-us/download)
+- [.NET SDK 10.0+](https://dotnet.microsoft.com/en-us/download)
 - `mnist_train.csv` with 784 pixel values + 1 label per row (CSV format: 785 values per line)
 - [Git LFS](https://git-lfs.com/) installed and initialized
 ---
