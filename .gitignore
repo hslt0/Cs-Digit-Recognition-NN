@@ -1,0 +1,17 @@
+bin/
+obj/
+.idea/
+*.sln.iml
+*.user
+*.suo
+*.userprefs
+*.log
+*.tmp
+*.temp
+*.bak
+.vscode/
+*.dll
+*.exe
+.DS_Store
+Thumbs.db
+trained_model.json
